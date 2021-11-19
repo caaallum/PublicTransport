@@ -1,24 +1,18 @@
 const http = require('http');
-let fs = require('fs');
+const express = require('express');
+const path = require('path');
+const app = express();
 
-const hostname = '127.0.0.1';
+app.use(express.json());
+app.use(express.static("express"));
+
+// default URL for website
+app.use('/', function(req,res){
+  res.sendFile(path.join(__dirname+'/pages/index.html'));
+});
+
+const server = http.createServer(app);
 const port = 3000;
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'text/html'
-  });
-  fs.readFile('./pages/index.html', null, function (error, data) {
-    if (error) {
-      res.writeHead(404);
-      res.write('File not found!');
-    } else {
-      res.write(data);
-    }
-    res.end();
-  });
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+server.listen(port);
+console.debug('Server listening on port ' + port);
