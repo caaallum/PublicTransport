@@ -26,8 +26,26 @@ router.get('/about', (req, res) =>
 
 router.get('/form', (req, res) =>
 {
-  res.sendFile(path.join(__dirname + '/pages/form.html'));
+  res.sendFile(path.join(__dirname + '/pages/petition.html'));
 });
+
+app.get('/get-count', async (req, res) =>
+{
+    try {
+        await client.connect();
+        const database = client.db("publictransport");
+        const collection = database.collection("interest");
+        var count = await collection.countDocuments();
+        res.send({body: count});
+    }
+    catch (ex)
+    {
+        console.log(ex)
+    }
+    finally {
+        await client.close();
+    }
+})
 
 // Form submit
 router.post('/submit',
@@ -40,7 +58,7 @@ router.post('/submit',
       const errors = validationResult(req);
       if (!errors.isEmpty())
       {
-        return res.status(400).json({ errors: errors.array() });
+        res.redirect('/form?error=' + JSON.stringify(errors.array()));
       }
 
       // Create mongodb connection
@@ -51,11 +69,7 @@ router.post('/submit',
         const collection = database.collection("interest");
 
         // Insert submission into database
-        //await collection.insertOne(req.body);
-        await collection.deleteMany();
-
-        const submissions = await collection.find().toArray();
-        console.log(JSON.stringify(submissions));
+        await collection.insertOne(req.body);
       }
       catch (e)
       {
@@ -66,8 +80,8 @@ router.post('/submit',
         await client.close();
       }
 
-      // Send user back to form page
-      return res.status(200);//res.sendFile(path.join(__dirname + '/pages/form.html'));
+      let backURL = req.header('Referer') || '/';
+      res.redirect(backURL + '?error=success');
 });
 
 // 404 page **KEEP LAST**

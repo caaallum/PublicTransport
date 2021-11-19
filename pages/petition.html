@@ -9,14 +9,16 @@
 		<link rel="stylesheet" type="text/css" href="css/loader.css">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
-
+    <button type="button" onclick="updateCount()">Update Count</button>
+    <p id="count"></p>
+    <ul id="errors"></ul>
     <body>
         <main class="container">
             <div class="row">
                 <div class="col-md-12">
                     <h1>Start your journey to improve your travel today</h1>
                 </div>
-                <form id="petition-form" method="POST" action="/submit">
+                <form id="petition-form" action="/submit" method="post">
                     <input class="col-12 col-md-4" type="text" name="fname" placeholder="First Name" required />
 
                     <input class="col-12 col-md-4" type="text" name="pname" placeholder="Preferred Name" required />
@@ -42,5 +44,36 @@
             </div>
         </main>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const json = JSON.parse(urlParams.get('error'));
+        console.log(json);
+        var errorlist = document.getElementById('errors');
 
+        console.log(json);
+        if (json != null)
+        {
+            for (var i = 0; i < json.length; i++) {
+                var error = json[i];
+                var entry = document.createElement('li');
+                entry.appendChild(document.createTextNode(`param: ${error.param} Error: ${error.msg}`));
+                errorlist.appendChild(entry);
+            }
+        }
+
+
+        function updateCount()
+        {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("count").innerHTML =
+                    JSON.parse(this.responseText).body;
+            }
+            xhttp.open("GET", "/get-count");
+            xhttp.send();
+        }
+
+    </script>
 </html>
