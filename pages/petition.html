@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Bus Petition</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/loader.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<script src="js/formvalidation.js"></script>
+    </head>
+
+    <body>
+        <main class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Start your journey to improve your travel today</h1>
+                </div>
+                <form id="petition-form">
+                    <input class="col-12 col-md-4" type="text" name="fname" placeholder="First Name" required />
+
+                    <input class="col-12 col-md-4" type="text" name="pname" placeholder="Preferred Name" required />
+
+                    <input class="col-12 col-md-4" type="text" name="sname" placeholder="Surname" required />
+
+                    <input class="col-12 col-md-8" type="email" name="email" placeholder="Email" required />
+
+                    <input class="col-12 col-md-4" type="text" name="dob"  pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}" placeholder="DD-MM-YYYY" oninvalid="this.setCustomValidity('The date must be in valid date in DD-MM-YYYY format')" oninput="this.setCustomValidity('')" required />
+
+                    <input class="col-12 col-md-4" type="number" name="houseno" placeholder="House Number" required />
+
+                    <input class="col-12 col-md-8" type="text" name="streetname" placeholder="Street Name" required />
+
+                    <input class="col-12 col-md-4" type="text" name="city" placeholder="City" required />
+
+                    <input class="col-12 col-md-4" type="text" name="country" placeholder="Country" required />
+
+                    <input class="col-12 col-md-4" type="text" name="postcode" placeholder="Postcode" pattern="^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$" oninvalid="this.setCustomValidity('Must enter a UK postcode')" oninput="this.setCustomValidity('')" required />
+					
+                    <input class="col-12" type="submit" name="Submit" />
+                </form>
+            </div>
+        </main>
+    </body>
+
+</html>
