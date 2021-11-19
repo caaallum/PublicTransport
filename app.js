@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const router = express.Router();
+const { body, validationResult } = require('express-validator');
 
 const { MongoClient }  = require("mongodb");
 const url = "mongodb://localhost:27017/";
@@ -29,7 +30,19 @@ router.get('/form', (req, res) =>
 });
 
 // Form submit
-router.post('/submit', async (req, res) => {
+router.post('/submit',
+    body('email').isEmail(),                      // Check email is valid
+    body('houseno').isNumeric(),                  // Check house number is numeric
+    body('fname').isLength({ min: 3 }),    // Check first name is at least 3 characters
+    body('sname').isLength({ min: 3}),     // Check last name is at least 3 characters
+    async (req, res) => {
+  // Check form values are valid
+  const errors = validationResult(req);
+  if (!errors.isEmpty())
+  {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   // Create mongodb connection
   try
   {
@@ -38,7 +51,8 @@ router.post('/submit', async (req, res) => {
     const collection = database.collection("interest");
 
     // Insert submission into database
-    await collection.insertOne(req.body);
+    //await collection.insertOne(req.body);
+    await collection.deleteMany();
 
     const submissions = await collection.find().toArray();
     console.log(JSON.stringify(submissions));
