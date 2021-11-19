@@ -56,6 +56,12 @@ router.post('/submit', async (req, res) => {
   res.sendFile(path.join(__dirname + '/pages/form.html'));
 });
 
+// 404 page **KEEP LAST**
+router.get('*', (req, res) =>
+{
+  res.sendFile(path.join(__dirname + '/pages/404.html'));
+});
+
 app.use('/', router);
 
 const server = http.createServer(app);
