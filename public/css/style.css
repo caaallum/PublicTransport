@@ -147,9 +147,9 @@ a,
      transition: all .3s ease-in-out;
 }
 
-img {
+.Services-box img  {
      max-width: 100%;
-     height: auto;
+     height: 9.5vh;
 }
 
  :focus {
@@ -355,12 +355,9 @@ button {
      color: #fff;
 }
 
-.text-img figure {
-     margin: 0px;
-}
 
-.text-img figure img {
-     width: 100%;
+.text-img {
+     width: 40vw;
 }
 
 .titlepage {
@@ -590,14 +587,14 @@ button {
      font-family: Poppins;
 }
 
-.main_form {
+.petition_form {
      background: #0c0f38;
      padding: 55px 55px;
      border-radius: 30px;
      margin-bottom: -58%;
 }
 
-.contact .main_form .contactus {
+.contact .petition_form .contactus {
      border: #fff solid 1px;
      padding: 0px 19px;
      margin-bottom: 20px;
@@ -609,7 +606,7 @@ button {
      font-size: 16px;
 }
 
-.contact .main_form .textarea {
+.contact .petition_form .textarea {
      margin-bottom: 25px;
      padding: 0px 19px;
      color: #999999 !important;
@@ -620,7 +617,7 @@ button {
      background: #fff;
 }
 
-.contact .main_form .send {
+.contact .petition_form .send {
      font-size: 16px;
      transition: ease-in all 0.5s;
      background-color: #fff;
@@ -631,7 +628,7 @@ button {
      border-radius: 30px;
 }
 
-.contact .main_form .send:hover {
+.contact .petition_form .send:hover {
      background-color: #8308eb;
      transition: ease-in all 0.5s;
      color: #fff;

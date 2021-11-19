@@ -69,7 +69,7 @@
             const xhttp = new XMLHttpRequest();
             xhttp.onload = function() {
                 document.getElementById("count").innerHTML =
-                    JSON.parse(this.responseText).body;
+                    `Count: ${JSON.parse(this.responseText).body}`;
             }
             xhttp.open("GET", "/get-count");
             xhttp.send();
