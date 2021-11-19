@@ -19,6 +19,7 @@
   "homepage": "https://github.com/CallumSpeirs/PublicTransport#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.13.0",
     "mongodb": "^4.2.0"
   }
 }
