@@ -36,38 +36,38 @@ router.post('/submit',
     body('fname').isLength({ min: 3 }),    // Check first name is at least 3 characters
     body('sname').isLength({ min: 3}),     // Check last name is at least 3 characters
     async (req, res) => {
-  // Check form values are valid
-  const errors = validationResult(req);
-  if (!errors.isEmpty())
-  {
-    return res.status(400).json({ errors: errors.array() });
-  }
+      // Check form values are valid
+      const errors = validationResult(req);
+      if (!errors.isEmpty())
+      {
+        return res.status(400).json({ errors: errors.array() });
+      }
 
-  // Create mongodb connection
-  try
-  {
-    await client.connect();
-    const database = client.db("publictransport");
-    const collection = database.collection("interest");
+      // Create mongodb connection
+      try
+      {
+        await client.connect();
+        const database = client.db("publictransport");
+        const collection = database.collection("interest");
 
-    // Insert submission into database
-    //await collection.insertOne(req.body);
-    await collection.deleteMany();
+        // Insert submission into database
+        //await collection.insertOne(req.body);
+        await collection.deleteMany();
 
-    const submissions = await collection.find().toArray();
-    console.log(JSON.stringify(submissions));
-  }
-  catch (e)
-  {
-    console.log(e)
-  }
-  finally
-  {
-    await client.close();
-  }
+        const submissions = await collection.find().toArray();
+        console.log(JSON.stringify(submissions));
+      }
+      catch (e)
+      {
+        console.log(e)
+      }
+      finally
+      {
+        await client.close();
+      }
 
-  // Send user back to form page
-  res.sendFile(path.join(__dirname + '/pages/form.html'));
+      // Send user back to form page
+      return res.status(200);//res.sendFile(path.join(__dirname + '/pages/form.html'));
 });
 
 // 404 page **KEEP LAST**
