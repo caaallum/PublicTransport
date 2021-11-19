@@ -62,10 +62,11 @@ router.get('*', (req, res) =>
   res.sendFile(path.join(__dirname + '/pages/404.html'));
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', router);
 
 const server = http.createServer(app);
 const port = 3000;
 
 server.listen(port);
-console.debug('Server listening on port ' + port);
+console.debug(`Server listening on port ${port} @ ${Date.now()}`);
